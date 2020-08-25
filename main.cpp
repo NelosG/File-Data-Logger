@@ -63,10 +63,10 @@ string timeToString(struct tm *u) {
 int main() {
     setlocale(LC_ALL, "");
     wstring ws = readFile("../Path.txt");
-    if(ws.substr(0, 2) == L"\\\\") {
-        WNetAddConnection(ws.c_str(), (LPCWSTR) NULL, (LPCWSTR) NULL);
-    }
     wstring wss = ConvertToUNC(ws);
+    if(ws.substr(0, 2) == L"\\\\") {
+        WNetAddConnection(wss.c_str(), (LPCWSTR) NULL, (LPCWSTR) NULL);
+    }
     getExcel(cast(readFile("../PathForLOGS.txt")) + "\\" + timeToString(gettime()) + ".xlsx", wss);
     return 0;
 }
