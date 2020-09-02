@@ -1,9 +1,10 @@
 #ifndef UNICODE
 #define UNICODE
 #endif
-#include "getExcelList.h"
+#include "getExcel/getExcelList.hpp"
 #include <codecvt>
 #include <winnetwk.h>
+
 using namespace std;
 using namespace OpenXLSX;
 
@@ -63,7 +64,7 @@ string timeToString(struct tm *u) {
 int main() {
     setlocale(LC_ALL, "");
     wstring ws = readFile("../Path.txt");
-    wstring wss = ConvertToUNC(ws);
+        wstring wss = ConvertToUNC(ws);
     if(ws.substr(0, 2) == L"\\\\") {
         WNetAddConnection(wss.c_str(), (LPCWSTR) NULL, (LPCWSTR) NULL);
     }

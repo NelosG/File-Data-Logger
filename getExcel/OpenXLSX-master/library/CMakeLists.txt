@@ -270,7 +270,18 @@ install(
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/OpenXLSX
 )
 
-
+# Package version
+write_basic_package_version_file(
+        "${CMAKE_CURRENT_BINARY_DIR}/OpenXLSX/OpenXLSXConfigVersion.cmake"
+        VERSION ${OpenXLSX_VERSION}
+        COMPATIBILITY AnyNewerVersion
+)
+install(
+        FILES
+        OpenXLSXConfig.cmake
+        "${CMAKE_CURRENT_BINARY_DIR}/OpenXLSX/OpenXLSXConfigVersion.cmake"
+        DESTINATION ${ConfigPackageLocation}
+)
 
 # Package configuration
 configure_file(OpenXLSXConfig.cmake

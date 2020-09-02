@@ -1,4 +1,6 @@
-int UnicodeToUTF8(char *res, const uint64_t unicode) {
+#include "Cast.h"
+#include <malloc.h>
+int UnicodeToUTF8(unsigned char *res, const uint64_t unicode) {
     if (unicode <= 0x7F) {
         res[0] = unicode;
         return 1;
@@ -30,11 +32,11 @@ int UnicodeToUTF8(char *res, const uint64_t unicode) {
 
 std::string cast(const std::wstring& ws) {
     std::string s;
-    char *res = (char*)malloc(sizeof(char) * 5);
+    auto *res = (unsigned char*)malloc(sizeof(unsigned char) * 5);
     for(auto wc : ws) {
         int temp = UnicodeToUTF8(res, wc);
         res[temp] = '\0';
-        s+=res;
+        s+= (char)(res);
     }
     free(res);
     return s;

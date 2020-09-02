@@ -1,7 +1,5 @@
-#include <Windows.h>
-#include <vector>
-#include "Cast.h"
-#include <OpenXLSX.hpp>
+#include "getExcelList.hpp"
+
 using namespace OpenXLSX;
 
 std::string fileTimeToString(FILETIME &ft) {
