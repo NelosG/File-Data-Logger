@@ -23,4 +23,4 @@ set_target_properties(
 )
 
 file(WRITE ${CMAKE_BINARY_DIR}/output/Path.txt "C:\\")
-file(WRITE ${CMAKE_BINARY_DIR}/output/PathForLOGS.txt "../LOGS")
+file(WRITE ${CMAKE_BINARY_DIR}/output/PathForLOGS.txt "..")
