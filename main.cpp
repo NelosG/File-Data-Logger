@@ -9,8 +9,6 @@
 using namespace std;
 
 
-
-
 wstring readFile(const char *filename) {
     wifstream wif(filename);
     wif.imbue(locale(locale::empty(), new codecvt_utf8<wchar_t>));
