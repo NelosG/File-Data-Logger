@@ -9,7 +9,7 @@
 #    define NOWIDE_CSTDLIB_HPP
 
 #    include <errno.h>
-#    include <nowide/stackstring.hpp>
+#    include "stackstring.hpp"
 #    include <stdlib.h>
 
 namespace nowide

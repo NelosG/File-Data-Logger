@@ -8,11 +8,11 @@
 #ifndef NOWIDE_ARGS_HPP_INCLUDED
 #    define NOWIDE_ARGS_HPP_INCLUDED
 
-#    include <nowide/config.hpp>
-#    include <nowide/stackstring.hpp>
+#    include "config.hpp"
+#    include "stackstring.hpp"
 #    include <vector>
 #    ifdef NOWIDE_WINDOWS
-#        include <nowide/windows.hpp>
+#        include "windows.hpp"
 #    endif
 
 namespace nowide

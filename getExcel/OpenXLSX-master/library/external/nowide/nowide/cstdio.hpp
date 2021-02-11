@@ -10,9 +10,9 @@
 
 #    include <cstdio>
 #    include <errno.h>
-#    include <nowide/config.hpp>
-#    include <nowide/convert.hpp>
-#    include <nowide/stackstring.hpp>
+#    include "config.hpp"
+#    include "stackstring.hpp"
+#    include "convert.hpp"
 #    include <stdio.h>
 
 #    ifdef NOWIDE_MSVC

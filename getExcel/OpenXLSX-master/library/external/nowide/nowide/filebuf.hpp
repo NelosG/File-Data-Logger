@@ -10,8 +10,8 @@
 
 #    include <fstream>
 #    include <iosfwd>
-#    include <nowide/config.hpp>
-#    include <nowide/stackstring.hpp>
+#    include "config.hpp"
+#    include "stackstring.hpp"
 #    include <stdio.h>
 #    include <streambuf>
 

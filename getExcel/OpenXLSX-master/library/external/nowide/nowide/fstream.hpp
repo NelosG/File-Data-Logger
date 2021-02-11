@@ -11,10 +11,10 @@
 #    include <fstream>
 #    include <iosfwd>
 #    include <memory>
-#    include <nowide/config.hpp>
-#    include <nowide/convert.hpp>
-#    include <nowide/filebuf.hpp>
-#    include <nowide/scoped_ptr.hpp>
+#    include "config.hpp"
+#    include "convert.hpp"
+#    include "filebuf.hpp"
+#    include "scoped_ptr.hpp"
 
 ///
 /// \brief This namespace includes implementation of the standard library functios

@@ -8,7 +8,7 @@
 #ifndef NOWIDE_CONVERT_H_INCLUDED
 #    define NOWIDE_CONVERT_H_INCLUDED
 
-#    include <nowide/encoding_utf.hpp>
+#    include "encoding_utf.hpp""
 #    include <string>
 
 namespace nowide

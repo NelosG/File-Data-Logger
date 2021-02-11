@@ -9,9 +9,9 @@
 #    define NOWIDE_UTF8_CODECVT_HPP
 
 #    include <locale>
-#    include <nowide/cstdint.hpp>
-#    include <nowide/static_assert.hpp>
-#    include <nowide/utf.hpp>
+#    include "cstdint.hpp"
+#    include "static_assert.hpp"
+#    include "utf.hpp"
 
 namespace nowide
 {

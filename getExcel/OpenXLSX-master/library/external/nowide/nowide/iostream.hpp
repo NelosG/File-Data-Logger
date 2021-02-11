@@ -10,8 +10,8 @@
 
 #    include <iostream>
 #    include <istream>
-#    include <nowide/config.hpp>
-#    include <nowide/scoped_ptr.hpp>
+#    include "config.hpp"
+#    include "scoped_ptr.hpp"
 #    include <ostream>
 
 #    ifdef NOWIDE_MSVC

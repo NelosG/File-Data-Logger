@@ -8,7 +8,7 @@
 #ifndef NOWIDE_UTF_HPP_INCLUDED
 #    define NOWIDE_UTF_HPP_INCLUDED
 
-#    include <nowide/config.hpp>
+#    include "config.hpp"
 
 #    ifndef NOWIDE_MSVC
 namespace nowide

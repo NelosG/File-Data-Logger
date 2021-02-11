@@ -8,15 +8,15 @@
 #ifndef NOWIDE_CENV_H_INCLUDED
 #    define NOWIDE_CENV_H_INCLUDED
 
-#    include <nowide/config.hpp>
-#    include <nowide/stackstring.hpp>
+#    include "config.hpp"
+#    include "stackstring.hpp"
 #    include <stdexcept>
 #    include <stdlib.h>
 #    include <string>
 #    include <vector>
 
 #    ifdef NOWIDE_WINDOWS
-#        include <nowide/windows.hpp>
+#        include "windows.hpp"
 #    endif
 
 namespace nowide

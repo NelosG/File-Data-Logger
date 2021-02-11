@@ -9,8 +9,8 @@
 #    define NOWIDE_ENCODING_UTF_HPP_INCLUDED
 
 #    include <iterator>
-#    include <nowide/encoding_errors.hpp>
-#    include <nowide/utf.hpp>
+#    include "encoding_errors.hpp"
+#    include "utf.hpp"
 #    include <string>
 #    ifdef NOWIDE_MSVC
 #        pragma warning(push)
