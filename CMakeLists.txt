@@ -5,9 +5,9 @@ project(Logger)
 #=======================================================================================================================
 # Output Directories.
 #=======================================================================================================================
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output/source)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output/source)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output/source)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/output/source)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/output/source)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/output/source)
 
 
 
@@ -22,5 +22,5 @@ set_target_properties(
         LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 )
 
-file(WRITE ${CMAKE_BINARY_DIR}/output/Path.txt "C:\\")
-file(WRITE ${CMAKE_BINARY_DIR}/output/PathForLOGS.txt "..")
+file(WRITE ${CMAKE_SOURCE_DIR}/output/Path.txt "C:\\")
+file(WRITE ${CMAKE_SOURCE_DIR}/output/PathForLOGS.txt "..")

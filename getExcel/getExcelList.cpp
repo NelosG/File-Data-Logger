@@ -1,18 +1,25 @@
 #ifndef UNICODE
 #define UNICODE
 #endif
+
 #include "getExcelList.h"
 #include <vector>
 #include <winnetwk.h>
 #include <OpenXLSX.hpp>
 #include <codecvt>
+
 using namespace OpenXLSX;
 using namespace std;
 
+#define MAX_ELEMENTS_PER_PAGE 500000
+
 struct tm;
-string cast(const wstring& ws) ;
-wstring ConvertToUNC(wstring sPath);
-string fileTimeToString(FILETIME &ft) {
+
+string cast(const wstring& ws);
+
+wstring ConvertToUNC(const wstring& sPath);
+
+string fileTimeToString(FILETIME& ft) {
     SYSTEMTIME stUTC, stLocal;
     // преобразовать время создания в локальное время.
     FileTimeToSystemTime(&ft, &stUTC);
@@ -25,7 +32,7 @@ string fileTimeToString(FILETIME &ft) {
            + "." + to_string(stLocal.wYear);
 }
 
-void getNameList(wstring path, XLDocument *doc, long long * ind, int *sheets) {
+void getNameList(wstring path, XLDocument* doc, long long* ind, int* sheets) {
     WIN32_FIND_DATA file;
     path += (path[path.length() - 1] == L'\\' ? L"" : L"\\");
     auto wks = (*doc).workbook().worksheet("Sheet" + to_string(*sheets));
@@ -40,11 +47,11 @@ void getNameList(wstring path, XLDocument *doc, long long * ind, int *sheets) {
                 std::string ss(std::to_string(*ind));
                 wks.cell(XLCellReference("A" + ss)).value() = cast(file.cFileName);
                 wks.cell(XLCellReference("B" + ss)).value() = cast(path + file.cFileName);
-                wks.cell(XLCellReference("C" + ss)).value() = (file.nFileSizeHigh * (MAXDWORD+1)) + file.nFileSizeLow;
+                wks.cell(XLCellReference("C" + ss)).value() = (file.nFileSizeHigh * (MAXDWORD + 1)) + file.nFileSizeLow;
                 wks.cell(XLCellReference("D" + ss)).value() = fileTimeToString(file.ftCreationTime);
                 wks.cell(XLCellReference("E" + ss)).value() = fileTimeToString(file.ftLastWriteTime);
                 (*ind)++;
-                if((*ind) > 500000) {
+                if ((*ind) > MAX_ELEMENTS_PER_PAGE) {
                     (*sheets)++;
                     (*doc).workbook().addWorksheet("Sheet" + to_string(*sheets));
                     wks = (*doc).workbook().worksheet("Sheet" + to_string(*sheets));
@@ -62,22 +69,22 @@ void getNameList(wstring path, XLDocument *doc, long long * ind, int *sheets) {
 }
 
 struct tm* gettime() {
-    struct tm *u;
+    struct tm* u;
     const time_t timer = time(nullptr);
     u = localtime(&timer);
     return u;
 }
 
-string timeToString(struct tm *u) {
+string timeToString(struct tm* u) {
     char s[40];
-    for (char &i : s) i = 0;
+    for (char& i: s) i = 0;
     strftime(s, 40, "%H.%M_%d.%m.%Y", u);
-    return string(s);
+    return s;
 }
 
 void getExcel(const string& pathForLogs, const wstring& path) {
-    if(path.substr(0, 2) == L"\\\\")
-        WNetAddConnection(ConvertToUNC(path).c_str(), (LPCWSTR) NULL, (LPCWSTR) NULL);
+    if (path.substr(0, 2) == L"\\\\")
+        WNetAddConnection(ConvertToUNC(path).c_str(), (LPCWSTR)NULL, (LPCWSTR)NULL);
     XLDocument doc;
     doc.create(pathForLogs);
     auto wks = doc.workbook().worksheet("Sheet1");
@@ -93,16 +100,13 @@ void getExcel(const string& pathForLogs, const wstring& path) {
 }
 
 void getExcel(const wstring& pathForLogs, const wstring& path) {
-    if(path.substr(0, 2) == L"\\\\")
-        WNetAddConnection(ConvertToUNC(path).c_str(), (LPCWSTR) NULL, (LPCWSTR) NULL);
+    if (path.substr(0, 2) == L"\\\\")
+        WNetAddConnection(ConvertToUNC(path).c_str(), (LPCWSTR)nullptr, (LPCWSTR)nullptr);
     getExcel(cast(pathForLogs) + "\\" + timeToString(gettime()) + ".xlsx", path);
 }
 
 
-
-
-
-int UnicodeToUTF8(char *res, const uint64_t unicode) {
+int UnicodeToUTF8(char* res, const uint64_t unicode) {
     if (unicode <= 0x7F) {
         res[0] = unicode;
         return 1;
@@ -134,39 +138,37 @@ int UnicodeToUTF8(char *res, const uint64_t unicode) {
 
 string cast(const wstring& ws) {
     string s;
-    char *res = (char*)malloc(sizeof(char) * 5);
-    for(auto wc : ws) {
+    char* res = (char*)malloc(sizeof(char) * 5);
+    for (auto wc: ws) {
         int temp = UnicodeToUTF8(res, wc);
         res[temp] = '\0';
-        s+=res;
+        s += res;
     }
     free(res);
     return s;
 }
-wstring ConvertToUNC(wstring sPath)
-{
+
+wstring ConvertToUNC(const wstring& sPath) {
     WCHAR temp;
-    UNIVERSAL_NAME_INFO * puni = NULL;
+    UNIVERSAL_NAME_INFO* puni = nullptr;
     DWORD bufsize = 0;
     wstring sRet = sPath;
     //Call WNetGetUniversalName using UNIVERSAL_NAME_INFO_LEVEL option
     if (WNetGetUniversalName(sPath.c_str(),
                              UNIVERSAL_NAME_INFO_LEVEL,
-                             (LPVOID) &temp,
-                             &bufsize) == ERROR_MORE_DATA)
-    {
+                             (LPVOID)&temp,
+                             &bufsize) == ERROR_MORE_DATA) {
         // now we have the size required to hold the UNC path
-        WCHAR * buf = new WCHAR[bufsize+1];
-        puni = (UNIVERSAL_NAME_INFO *)buf;
+        auto* buf = new WCHAR[bufsize + 1];
+        puni = (UNIVERSAL_NAME_INFO*)buf;
         if (WNetGetUniversalName(sPath.c_str(),
                                  UNIVERSAL_NAME_INFO_LEVEL,
-                                 (LPVOID) puni,
-                                 &bufsize) == NO_ERROR)
-        {
+                                 (LPVOID)puni,
+                                 &bufsize) == NO_ERROR) {
             sRet = wstring(puni->lpUniversalName);
         }
-        delete [] buf;
+        delete[] buf;
     }
 
-    return sRet;;
+    return sRet;
 }
