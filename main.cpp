@@ -6,23 +6,20 @@
 #include <codecvt>
 #include <fstream>
 #include <sstream>
-
+#include <filesystem>
 using namespace std;
 
-wstring readFile(const char* filename) {
-    wifstream wif(filename);
-    wif.imbue(locale(locale::empty(), new codecvt_utf8<wchar_t>));
-    wstringstream wss;
-    wss << wif.rdbuf();
-    wstring ws = wss.str();
-    wif.close();
-    return ws;
+string readFile(const char* filename) {
+    ifstream wif(filename);
+    string s;
+    wif >> s;
+    return s;
 }
 
 
 int main() {
     setlocale(LC_ALL, "");
 
-    getExcel(readFile("../PathForLOGS.txt"), readFile("../Path.txt"));
+    getExcel(filesystem::path(readFile("../PathForLOGS.txt")), filesystem::path(readFile("../Path.txt")));
     return 0;
 }
