@@ -24,5 +24,5 @@ target_link_libraries(Logger PRIVATE getExcel)
 #            LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup"
 #    )
 #endif ()
-file(WRITE ${CMAKE_SOURCE_DIR}/output/Path.txt "C:\\Users\\glebp\\Desktop\\DB")
-file(WRITE ${CMAKE_SOURCE_DIR}/output/PathForLOGS.txt "..")
+file(WRITE ${CMAKE_SOURCE_DIR}/output/Path.txt "..\\DB")
+file(WRITE ${CMAKE_SOURCE_DIR}/output/PathForLOGS.txt "..\\logs")
