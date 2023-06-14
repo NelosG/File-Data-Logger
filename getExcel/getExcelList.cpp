@@ -62,7 +62,7 @@ void getNameList(wstring path, logger& lg, long long& ind, int& sheets) {
     FindClose(hFind);
 }
 
-struct tm* gettime() {
+struct tm* getTime() {
     struct tm* u;
     const time_t timer = time(nullptr);
     u = localtime(&timer);
@@ -76,7 +76,7 @@ string timeToString(struct tm* u) {
     return s;
 }
 
-void getExcel(const std::string& pathForLogs, const wstring& path) {
+void getExcel(const wstring& path, const std::string& pathForLogs) {
     if (path.substr(0, 2) == L"\\\\")
         WNetAddConnection(ConvertToUNC(path).c_str(), (LPCWSTR)nullptr, (LPCWSTR)nullptr);
     logger lg(pathForLogs);
@@ -87,10 +87,10 @@ void getExcel(const std::string& pathForLogs, const wstring& path) {
     lg.close();
 }
 
-void getExcel(const wstring& pathForLogs, const wstring& path) {
+void getExcel(const std::wstring& path, const std::wstring& pathForLogs) {
     if (path.substr(0, 2) == L"\\\\")
         WNetAddConnection(ConvertToUNC(path).c_str(), (LPCWSTR)nullptr, (LPCWSTR)nullptr);
-    getExcel(cast(pathForLogs) + "\\" + timeToString(gettime()) + ".xlsx", path);
+    getExcel(path, cast(pathForLogs) + "\\" + timeToString(getTime()) + ".xlsx");
 }
 
 

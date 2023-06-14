@@ -2,4 +2,4 @@
 #include <Windows.h>
 
 
-void getExcel(const std::wstring& pathForLogs, const std::wstring& path);
+void getExcel(const std::wstring& path, const std::wstring& pathForLogs);
